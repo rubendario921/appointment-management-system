@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>appointment_api</RootNamespace>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <DefaultItemExcludes>$(DefaultItemExcludes);Domain\**;Application\**;infrastructure\**</DefaultItemExcludes>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.2" />
+        <PackageReference Include="Scalar.AspNetCore" Version="2.0.11" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="Domain/domain.csproj" />
+      <ProjectReference Include="Application/application.csproj" />
+      <ProjectReference Include="infrastructure/infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>
