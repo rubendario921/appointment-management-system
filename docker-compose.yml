@@ -1,0 +1,27 @@
+services:
+  appointment-api:
+    build:
+      context: ./appointment-api
+      dockerfile: Dockerfile
+    ports:
+      - "5079:8080" # Maps local 5079 to container 8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - appointment-network
+
+  appointment-web:
+    build:
+      context: ./appointment-web
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - appointment-api
+    networks:
+      - appointment-network
+
+networks:
+  appointment-network:
+    driver: bridge
