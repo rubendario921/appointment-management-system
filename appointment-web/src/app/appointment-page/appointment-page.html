@@ -1,0 +1,202 @@
+<div class="page-container">
+  <header class="header animate-fade-in">
+    <div class="logo">
+      <h1>Vehicle Appointments</h1>
+    </div>
+    <p class="subtitle">Manage your vehicle appointments with ease and precision.</p>
+  </header>
+
+  <main class="content-grid">
+    <!-- Consult Section -->
+    <section class="card animate-slide-up" style="animation-delay: 0.1s">
+      <div class="card-header">
+        <div class="icon-box blue">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+        <div>
+          <h2>Consult Appointment</h2>
+          <p>Check your current status using your plaque</p>
+        </div>
+      </div>
+
+      <form [formGroup]="consultForm" (ngSubmit)="onConsult()" class="form-container">
+        <div class="input-group">
+          <label for="consult-plaque">Plaque ID</label>
+          <input
+            id="consult-plaque"
+            type="text"
+            formControlName="plaque"
+            placeholder="ABC1234"
+            [class.error]="consultForm.get('plaque')?.invalid && consultForm.get('plaque')?.touched"
+          />
+          <span class="input-hint">Format: 3 letters, 4 numbers (e.g., ABC1234)</span>
+        </div>
+
+        <button type="submit" [disabled]="consultForm.invalid" class="btn btn-primary">
+          <span>Search Appointment</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </form>
+
+      <div *ngIf="appointments.length > 0" class="results-list">
+        <div
+          *ngFor="let item of appointments; let i = index"
+          class="result-box animate-scale-in"
+          [style.animation-delay]="i * 0.1 + 's'"
+        >
+          <div class="result-header">
+            <span class="status-badge">Confirmed</span>
+          </div>
+          <div class="details-list">
+            <div class="detail-item">
+              <span class="label">Plaque</span>
+              <span class="value">{{ item.plaque }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Date</span>
+              <span class="value">{{
+                (item.createdHour | date: 'MMMM d, y') || item.createdHour
+              }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Time</span>
+              <span class="value">{{
+                (item.createdHour | date: 'shortTime') || item.createdHour
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section class="card animate-slide-up" style="animation-delay: 0.2s">
+      <div class="card-header">
+        <div class="icon-box blue">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+        </div>
+        <div>
+          <h2>New Schedule</h2>
+          <p>Book a new appointment for your vehicle</p>
+        </div>
+      </div>
+
+      <form [formGroup]="scheduleForm" (ngSubmit)="onSchedule()" class="form-container">
+        <div class="input-group">
+          <label for="schedule-plaque">Plaque ID</label>
+          <input
+            id="schedule-plaque"
+            type="text"
+            formControlName="plaque"
+            placeholder="ABC1234"
+            [class.error]="
+              scheduleForm.get('plaque')?.invalid && scheduleForm.get('plaque')?.touched
+            "
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="input-group">
+            <label for="date">Date</label>
+            <input
+              id="date"
+              type="date"
+              formControlName="date"
+              [class.error]="scheduleForm.get('date')?.invalid && scheduleForm.get('date')?.touched"
+            />
+          </div>
+          <div class="input-group">
+            <label for="time">Time</label>
+            <input
+              id="time"
+              type="time"
+              formControlName="time"
+              [class.error]="scheduleForm.get('time')?.invalid && scheduleForm.get('time')?.touched"
+            />
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="scheduleForm.invalid" class="btn btn-secondary">
+          <span>Book Appointment</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+          </svg>
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Global Messages -->
+  <div
+    *ngIf="message"
+    class="message-toast"
+    [class.success]="
+      message.toLowerCase().includes('success') ||
+      message.toLowerCase().includes('éxito') ||
+      message.toLowerCase().includes('created') ||
+      message.toLowerCase().includes('creada') ||
+      message.toLowerCase().includes('encontrado') ||
+      message.toLowerCase().includes('reservada')
+    "
+    [class.error]="
+      message.toLowerCase().includes('error') ||
+      message.toLowerCase().includes('falló') ||
+      message.toLowerCase().includes('incorrecto') ||
+      message.toLowerCase().includes('no se')
+    "
+  >
+    <p>{{ message }}</p>
+    <button (click)="message = ''" class="close-btn">&times;</button>
+  </div>
+</div>
